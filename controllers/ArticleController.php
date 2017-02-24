@@ -34,9 +34,11 @@ class ArticleController extends Controller
     }
   }
 
-  public function actionRead($value='')
+  public function actionView($id)
   {
-    # code...
+    return $this->render('view', [
+        'model' => $this->findModel($id),
+    ]);
   }
 
   public function actionUpdate($value='')
@@ -52,6 +54,21 @@ class ArticleController extends Controller
   public function actionSubscribe($value='')
   {
     # code...
+  }
+
+  //Search in BD
+  public function findModel ($id)
+  { //If data not null then return it to action
+    if(($model = Article::findOne($id)) !== null)
+    {
+
+      return $model;
+    }
+    //Else throw new exception
+    else
+    {
+      throw new NotFoundHttpException("Error Processing Request", 1);
+    }
   }
 }
 
