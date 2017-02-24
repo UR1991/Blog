@@ -54,9 +54,10 @@ class ArticleController extends Controller
     # code...
   }
 
-  public function actionDelete($value='')
+  public function actionDelete($id)
   {
-    # code...
+    $this->findModel($id)->delete();
+    return $this->redirect(['index']);
   }
 
   public function actionSubscribe($value='')
