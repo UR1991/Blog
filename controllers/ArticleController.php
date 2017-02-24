@@ -1,5 +1,13 @@
 <?php
 //Controller for working with articles
+
+namespace app\controllers;
+
+use app\models\Article;
+use Yii;
+use yii\web\Controller;
+
+
 class ArticleController extends Controller
 {
   public function actionIndex($value='')
