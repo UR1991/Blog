@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Html;
-use app\models\Comments;
+use app\models\Comment;
 use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
 
@@ -28,6 +28,20 @@ $this->params['breadcrumbs'][] = $this->title;
        'id',
        'name',
        'body',
+       'category',
      ],
      ]) ?>
+
+     <h1><?php Yii::t('app', 'Comment') ?></h1>
+    <?php foreach ($model->comment as $comment): ?>
+        <hr>
+        <div class="h4"><?= $comment->text ?></div>
+        <div class="text-muted"><?= $comment->date ?></div>
+    <?php endforeach; ?>
+
+    <hr>
+    <?php $form = ActiveForm::begin() ?>
+    <?= $form->field(new Comment(), 'text')->textarea() ?>
+    <?= Html::submitButton('Отправить', ['class' => 'btn btn-success']) ?>
+<?php ActiveForm::end() ?>
  </div>

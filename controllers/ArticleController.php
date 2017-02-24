@@ -5,6 +5,7 @@ namespace app\controllers;
 
 use app\models\Article;
 use app\models\ArticleSearch;
+use app\models\Comment;
 use Yii;
 use yii\web\Controller;
 
@@ -36,9 +37,16 @@ class ArticleController extends Controller
 
   public function actionView($id)
   {
-    return $this->render('view', [
-        'model' => $this->findModel($id),
-    ]);
+    $model = $this->findModel($id);
+    $comment = new Comment();
+
+    if ($comment->load(Yii::$app->request->post())){
+      $comment->task_id = $model->id;
+      if ($comment->save()){
+        return $this->refresh();
+      }
+    }
+    return $this->render('view', ['model' => $model,]);
   }
 
   public function actionUpdate($value='')
