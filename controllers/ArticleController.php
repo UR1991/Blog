@@ -49,9 +49,18 @@ class ArticleController extends Controller
     return $this->render('view', ['model' => $model,]);
   }
 
-  public function actionUpdate($value='')
+  public function actionEdit($id)
   {
-    # code...
+    $model = $this->findModel($id);
+
+    if ($model->load(Yii::$app->request->post()) && $model->save())
+    {
+      return $this->redirect(['view', 'id' => $model->id]);
+    }
+    else
+    {
+      return $this->render('edit', ['model' => $model,]);
+    }
   }
 
   public function actionDelete($id)
