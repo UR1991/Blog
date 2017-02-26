@@ -18,7 +18,7 @@ class Comment extends ActiveRecord
   {
     return [
       'id' => 'ID',
-      'task_id' => 'task_id',
+      'article_id' => 'article_id',
       'text' => 'text',
       'date' => 'date',
     ];
@@ -35,7 +35,7 @@ class Comment extends ActiveRecord
 
   public function getArticle()
 {
-    return $this->hasOne(Article::className(), ['id' => 'task_id']);
+    return $this->hasOne(Article::className(), ['id' => 'article_id']);
 }
 }
  ?>

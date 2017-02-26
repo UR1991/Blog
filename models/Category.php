@@ -20,14 +20,17 @@ class Category extends ActiveRecord
     ];
   }
 
-  /*public function rules()
+  public function rules()
   {
     return [
-        [['name', 'body', 'category'], 'required'],
-        [['name'], 'string', 'max' => 30],
-        [['body'], 'string', 'max' => 250],
+        [['category'], 'required'],
     ];
-  }*/
+  }
+
+  public function getArticle()
+{
+    return $this->hasMany(Article::className(), ['id' => 'category']);
+}
 
 }
  ?>

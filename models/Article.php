@@ -33,7 +33,12 @@ class Article extends ActiveRecord
 
   public function getComment()
 {
-    return $this->hasMany(Comment::className(), ['task_id' => 'id']);
+    return $this->hasMany(Comment::className(), ['article_id' => 'id']);
+}
+
+public function getCategory()
+{
+  return $this->hasMany(Category::className(), ['id' => 'category']);
 }
 
 }

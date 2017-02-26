@@ -18,7 +18,7 @@ class ArticleSearch extends Article
 
   public function search($params)
   {
-    $query = Article::find();
+    $query = Article::find()->where($params);
 
     //Add conditions
 
@@ -26,17 +26,24 @@ class ArticleSearch extends Article
       'query' => $query,
     ]);
 
-    $this->load($params);
+    //$this->load($params);
 
-    if (!$this->validate())
-    {
+    if (!($this->load($params) && $this->validate()))
+    {      //var_dump($params);
+          //die();
       return $dataProvider;
     }
 
-    $query->andFilterWhere([ 'id' => $this->id, ]);
-    $query->andFilterWhere(['like', 'name', $this->name])
-    ->andFilterWhere(['like', 'body', $this->body]);
+    $query->andWhere([ 'id' => $params['id'], ]);
+    $query->andWhere(['category' => $params['category'],]);
+    $query->andFilterWhere(['like', 'name', $params['name']])
+    ->andFilterWhere(['like', 'body', $params['body']]);
 
+
+
+
+    //var_dump($dataProvider->models);
+    //      die();
     return $dataProvider;
   }
 }

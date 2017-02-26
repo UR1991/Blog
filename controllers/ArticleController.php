@@ -6,16 +6,18 @@ namespace app\controllers;
 use app\models\Article;
 use app\models\ArticleSearch;
 use app\models\Comment;
+use app\models\Category;
 use Yii;
 use yii\web\Controller;
 
 
 class ArticleController extends Controller
 {
-  public function actionIndex()
-  {
-    $searchModel = new ArticleSearch();
 
+  public function actionIndex($params = null)
+  {
+
+    $searchModel = new ArticleSearch();
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
     return $this->render('index', [
@@ -41,7 +43,7 @@ class ArticleController extends Controller
     $comment = new Comment();
 
     if ($comment->load(Yii::$app->request->post())){
-      $comment->task_id = $model->id;
+      $comment->article_id = $model->id;
       if ($comment->save()){
         return $this->refresh();
       }
@@ -87,6 +89,19 @@ class ArticleController extends Controller
     {
       throw new NotFoundHttpException("Error Processing Request", 1);
     }
+  }
+
+  public function actionCategory($category)
+  {
+    $model = Article::find()->where(['category' => $category])->all();
+    //$category = [];
+    //foreach ($model as $key => $value) {
+    //  $category[] = ['label'=> $value['category_name'], 'url' => $value['id']];
+    //}
+    //var_dump($model);
+    //die();
+    return $this->redirect(['index', 'data' => $model,]);
+
   }
 }
 

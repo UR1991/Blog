@@ -4,7 +4,9 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\bootstrap\Button;
+use yii\bootstrap\Collapse;
 use yii\helpers\ArrayHelper;
+
 
 $this->title = Yii::t('app', 'Articles list');
 //Use breadcrumbs to set title
@@ -15,9 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
   <h1><?= Html::encode($this->title) ?></h1>
   <?php //echo $this->render('_search', ['model' => $searchModel]);
 
-  foreach ($dataProvider->models as $model)
+  foreach ($dataProvider->models as $value)
   {
-      ?><?= Html::a($model->name) ?><?php
+       ?><?= Html::a(Yii::t('app', $value->name), ['view', 'id'=>$value['id']]) ?><?php
   }
 
 

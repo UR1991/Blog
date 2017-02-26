@@ -8,6 +8,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\components\CategoryWidget;
 
 AppAsset::register($this);
 ?>
@@ -36,7 +37,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'Home', 'url' => ['/article/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
@@ -62,6 +63,10 @@ AppAsset::register($this);
         ]) ?>
         <?= $content ?>
     </div>
+</div>
+
+<div class="Category">
+  <?= CategoryWidget::widget()?>
 </div>
 
 <footer class="footer">
