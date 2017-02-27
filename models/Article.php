@@ -38,7 +38,13 @@ class Article extends ActiveRecord
 
 public function getCategory()
 {
-  return $this->hasMany(Category::className(), ['id' => 'category']);
+  return $this->hasOne(Category::className(), ['id' => 'category']);
+}
+
+public function getTags()
+{
+  return $this->hasMany(Tags::className(), ['id' => 'tag_id'])
+  ->viaTable('tag_articles', ['article_id' => 'id']);
 }
 
 }

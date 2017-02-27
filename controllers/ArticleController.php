@@ -7,6 +7,8 @@ use app\models\Article;
 use app\models\ArticleSearch;
 use app\models\Comment;
 use app\models\Category;
+use app\models\Tags;
+use app\models\TagArticles;
 use Yii;
 use yii\web\Controller;
 
@@ -20,10 +22,16 @@ class ArticleController extends Controller
     $searchModel = new ArticleSearch();
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+    $tag = new Tags();
+
+    //var_dump($tag->id);
+    //die();
     return $this->render('index', [
       'searchModel' => $searchModel,
       'dataProvider' => $dataProvider,
     ]);
+
+
   }
 
   public function actionCreate()
@@ -40,15 +48,23 @@ class ArticleController extends Controller
   public function actionView($id)
   {
     $model = $this->findModel($id);
+
     $comment = new Comment();
 
-    if ($comment->load(Yii::$app->request->post())){
+    $tags = new Tags();
+    $tags->load(Yii::$app->request->post());
+    $tags = $model->tags;
+
+    if ( $comment->load( Yii::$app->request->post() ) )
+    {
       $comment->article_id = $model->id;
-      if ($comment->save()){
+
+      if ($comment->save())
+      {
         return $this->refresh();
       }
     }
-    return $this->render('view', ['model' => $model,]);
+    return $this->render('view', ['model' => $model, 'tags' => $tags,]);
   }
 
   public function actionEdit($id)

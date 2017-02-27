@@ -15,15 +15,7 @@ class CategoryController extends Controller
 {
   public function actionIndex()
   {
-    $model = Category::find()->all();
-    $category = [];
-    foreach ($model as $key => $value) {
-      $category[] = ['label'=> $value['category_name'], 'url' => $value['id']];
-    }
-    return $this->render('//site/index', [
-      'category' => $category,
-      //'dataProvider' => $dataProvider,
-    ]);
+    echo "render category editor";
   }
 }
 

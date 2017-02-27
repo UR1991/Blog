@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use app\models\Comment;
+use app\models\TagArticles;
 use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
 
@@ -32,6 +33,18 @@ $this->params['breadcrumbs'][] = $this->title;
      ],
      ]) ?>
 
+<?php //var_dump($model->tags);
+    //die(); ?>
+
+     <h1><?php Yii::t('app', 'Tags') ?></h1>
+     <?php foreach ($model->tags as $tag): ?>
+        <hr>
+        <div class="text-muted"><?= $tag->title ?></div>
+     <?php endforeach; ?>
+
+
+
+
      <h1><?php Yii::t('app', 'Comment') ?></h1>
     <?php foreach ($model->comment as $comment): ?>
         <hr>
@@ -41,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <hr>
     <?php $form = ActiveForm::begin() ?>
-    <?= $form->field(new Comment(), 'text')->textarea() ?>
-    <?= Html::submitButton('Отправить', ['class' => 'btn btn-success']) ?>
-<?php ActiveForm::end() ?>
+      <?= $form->field(new Comment(), 'text')->textarea() ?>
+      <?= Html::submitButton('Отправить', ['class' => 'btn btn-success']) ?>
+    <?php ActiveForm::end() ?>
  </div>
