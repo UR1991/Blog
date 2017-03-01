@@ -9,6 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\components\CategoryWidget;
+use app\components\MailWidget;
 
 AppAsset::register($this);
 ?>
@@ -25,6 +26,9 @@ AppAsset::register($this);
 <body>
   <div class="Category">
     <?= CategoryWidget::widget()?>
+  </div>
+  <div class="Category">
+    <?= MailWidget::widget()?>
   </div>
 <?php $this->beginBody() ?>
 

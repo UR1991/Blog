@@ -16,7 +16,6 @@ use yii\web\Controller;
 class ArticleController extends Controller
 {
 
-
   public function actionIndex($params = null)
   {
     if($params !== null)
@@ -26,12 +25,6 @@ class ArticleController extends Controller
     else {
       $model = Article::find()->all();
     }
-
-
-
-
-
-
 
     $searchModel = new ArticleSearch();
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -50,7 +43,7 @@ class ArticleController extends Controller
 
     if ($model->load(Yii::$app->request->post()) && $model->save())
     {
-      //$saveTag = TagArticles::save($tags);
+      MailController::send($model);
 
 
       return $this->redirect(['view', 'id' => $model->id]);
@@ -86,29 +79,6 @@ class ArticleController extends Controller
     //Render view with model and comments
     return $this->render('view', ['model' => $model, 'comments' => $comments,]);
   }
-
-
-
-
-
-  public function actionTest($id = 1)
-  {
-    $model = $this->findModel($id);
-
-    $tags = Tags::findOne($id);
-    //$tags->id = $id;
-    $model->link('tags', $tags);
-    //var_dump($tags);
-    //die();
-  }
-
-
-
-
-
-
-
-
 
   public function actionEdit($id)
   {
