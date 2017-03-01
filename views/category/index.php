@@ -7,7 +7,7 @@ use app\models\Tags;
 use yii\helpers\ArrayHelper;
 ?>
 
-<div class="article-form">
+<div class="category-form">
 
   <p>
       <?= Html::a(Yii::t('app', 'Create Category'), ['create'], ['class' => 'btn btn-success']) ?>
@@ -16,13 +16,14 @@ use yii\helpers\ArrayHelper;
 
 
   <?php
-
+    //Show all avaliable categories
     foreach ($dataProvider->models as $value) {
-      //var_dump($dataProvider->models);
-      //die();
-      ?><?= Html::a(Yii::t('app', $value->category_name), ['view', 'id'=>$value['id']]) ?><?php
-      ?><?= Html::a(Yii::t('app', 'Edit'), ['edit', 'id'=>$value['id']], ['class' => 'btn btn-success']) ?><?php
-      ?><?= Html::a(Yii::t('app', "Delete"), ['delete', 'id'=>$value['id']], ['class' => 'btn btn-success']) ?></br><?php
+      //view category
+      ?><?= Html::a(Yii::t('app', $value->category_name), ['view', 'id'=>$value['id']]) ?></br><?php
+      //edit catedory
+      ?><?= Html::a(Yii::t('app', 'Edit'), ['edit', 'id'=>$value['id']], ['class' => 'glyphicon glyphicon-pencil']) ?>  <?php
+      //delete category
+      ?><?= Html::a(Yii::t('app', "Delete"), ['delete', 'id'=>$value['id']], ['class' => 'glyphicon glyphicon-trash']) ?></br></br><?php
     }
 
    ?>

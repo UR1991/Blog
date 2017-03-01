@@ -1,5 +1,5 @@
 <?php
-//Model for working with comments
+//Model for working with articles
 namespace app\models;
 
 use Yii;
@@ -14,11 +14,13 @@ class Article extends ActiveRecord
 
   public $tags = [];
 
+  //return name of table with articles
   public static function tableName()
   {
     return 'articles';
   }
 
+  //set attributes labels
   public function attributeLabels()
   {
     return [
@@ -40,27 +42,25 @@ class Article extends ActiveRecord
     ];
   }
 
+  //Get comments related with this one article by id
   public function getComment()
 {
     return $this->hasMany(Comment::className(), ['article_id' => 'id']);
 }
-
+//Get category related with this one article by id
 public function getCategory()
 {
   return $this->hasOne(Category::className(), ['id' => 'category']);
 }
 
-public function setTags($tagsId)
-{
-    $this->tags = (array) $tagsId;
-}
-
+//Get tags names related with this one article by id throw table tag_articles
 public function getTags()
 {
   return $this->hasMany(Tags::className(), ['id' => 'tag_id'])
   ->viaTable('tag_articles', ['article_id' => 'id']);
 }
 
+//Get tags related with this one article by id in tag_articles table
 public function getTagArticles()
 {
     return $this->hasMany(
@@ -68,6 +68,7 @@ public function getTagArticles()
     );
 }
 
+//get the Article model
 public function getArticle($id)
 {
     if (
@@ -78,16 +79,21 @@ public function getArticle($id)
     }
 }
 
+//save the changes in tag_articles relations
 public function afterSave($insert, $changedAttributes)
 {
+    //Deleteing all relations with article before saving
     TagArticles::deleteAll(['article_id' => $this->id]);
 
+    //if tags is array and not empty
     if (is_array($this->tags) && !empty($this->tags)) {
+        //create array wits new relations
         $values = [];
         foreach ($this->tags as $id) {
             $values[] = [$this->id, $id];
         }
 
+        //save relations in DB
         self::getDb()->createCommand()
             ->batchInsert(TagArticles::tableName(), ['article_id', 'tag_id'], $values)->execute();
     }else {

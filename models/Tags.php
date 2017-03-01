@@ -7,6 +7,7 @@ use yii\db\ActiveRecord;
 
 class Tags extends ActiveRecord
 {
+  //return name of table with tags
   public static function tableName()
   {
     return 'tags';
@@ -27,11 +28,13 @@ class Tags extends ActiveRecord
     ];
   }
 
+  //get relations
   public function getTagArticles()
 {
     return $this->hasMany(TagArticles::className(), ['tag_id' => 'id']);
 }
 
+//find tag by id
 public function getTag($id)
 {
     if (($model = Tags::findOne($id)) !== null) {

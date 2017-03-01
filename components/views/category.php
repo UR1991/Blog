@@ -1,3 +1,4 @@
+<!--Widget for main layout, a simple list with categories. No time for subcategories(( -->
 <div>
   <h3>Categories</h3>
       <ul>

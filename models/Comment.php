@@ -33,6 +33,7 @@ class Comment extends ActiveRecord
       ];
   }
 
+  //get articles with category relations 
   public function getArticle()
 {
     return $this->hasOne(Article::className(), ['article_id' => 'id']);

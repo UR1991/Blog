@@ -17,7 +17,9 @@ use app\models\Mail;
 
     public function run()
     {
+      //Create new object Mail
       $model = new Mail();
+      //Render widget and send object
       return $this->render('mail', ['model' => $model]);
     }
   }

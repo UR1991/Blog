@@ -7,6 +7,6 @@ $this->params['breadcrumbs'][] = $this->title;
  ?>
 <div class="category-edit">
   <h1><?= Html::encode($this->title) ?></h1>
-
+  <!--render Create/Edit form-->
   <?= $this->render('_form', ['model' => $model,]) ?>
 </div>

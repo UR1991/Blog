@@ -25,9 +25,11 @@ AppAsset::register($this);
 </head>
 <body>
   <div class="Category">
+    <!--render category widget-->
     <?= CategoryWidget::widget()?>
   </div>
   <div class="Category">
+    <!--render subscribe widget-->
     <?= MailWidget::widget()?>
   </div>
 <?php $this->beginBody() ?>

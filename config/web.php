@@ -23,9 +23,8 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
+            // App not adjusted for real send
+            //Only local send adjusted
             'useFileTransport' => true,
         ],
         'log' => [
@@ -45,7 +44,7 @@ $config = [
             'rules' => [
             ],
         ],
-        
+
     ],
     'params' => $params,
 ];

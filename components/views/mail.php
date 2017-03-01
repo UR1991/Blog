@@ -1,4 +1,4 @@
-<!--Subview for create/edit article-->
+<!--Widget for main layout, input field for email. Two buttons for subscribe/unsubscribe -->
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;

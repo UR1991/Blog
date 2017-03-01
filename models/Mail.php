@@ -7,6 +7,7 @@ use yii\db\ActiveRecord;
 
 class Mail extends ActiveRecord
 {
+  //return name of table with email`s
   public static function tableName()
   {
     return 'mails';

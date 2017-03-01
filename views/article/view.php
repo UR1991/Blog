@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
        ]) ?>
    </p>
 
+   <!-- Show article-->
    <?= DetailView::widget([
      'model' => $model,
      'attributes' => [
@@ -36,45 +37,52 @@ $this->params['breadcrumbs'][] = $this->title;
      ],
      ]) ?>
 
-
-
-<div>
+ <div>
   <?php
   //Get Tags and show it
+  //create tags array
   $tags = [];
+  //
 foreach ($model->getTagArticles()->all() as $value){
+    //get tag model
     $tag = $value->getTags()->one();
+    //If click on tag render tag view - not comlete
     $tags[] = Html::a($tag->title, ['tag/view', 'id' => $tag->id]);
   } ?>
+  <!--Show related tags-->
   <?= Yii::t('app', 'Tags') ?>: <?= implode($tags, ', ') ?>
 </div>
 
 
      <div>
-                 <h3><?= Yii::t('app', 'Add Comment')?></h3>
-                 <?php
-                 $form = ActiveForm::begin(); ?>
-                     <?=$form->field($comments, 'text')->textArea()->label(false);?>
-                     <div class="form-group">
-                         <?=Html::submitButton(Yii::t('app', 'Add'), ['class' => 'btn btn-success'])?>
-                     </div>
-                 <?php
-                 ActiveForm::end(); ?>
+          <h3><?= Yii::t('app', 'Add Comment')?></h3>
+          <?php //Start  form to create new comment
+             $form = ActiveForm::begin(); ?>
+             <!--textArea with text commentary-->
+              <?=$form->field($comments, 'text')->textArea()->label(false);?>
+               <div class="form-group">
+                 <!--buttom for submit -->
+                  <?=Html::submitButton(Yii::t('app', 'Add'), ['class' => 'btn btn-success'])?>
+               </div>
+
+                <?php ActiveForm::end(); //end form ?>
      </div>
 
 
 
      <?php
-             // View commentaries
+             // If get related comments
              if ($comments = $model->comment) {?>
                  <h3><?= Yii::t('app', 'Comments')?></h3>
+                 <!--show their text in simple table -->
                  <?php foreach($comments as $com) {?>
                      <div class='list-group-item clearfix'>
                          <div class="col-sm-11">
                              <p><?= $com['text']?></p>
                          </div>
                          <div class="col-sm-1">
-                             <a href="<?= Url::to(['comment/delete_comment', 'id' => $com['id']])?>">
+                           <!--link for deleting action-->
+                             <a href="<?= Url::to(['comment/delete', 'id' => $com['id']])?>">
                                  <span class="glyphicon glyphicon-trash">
                              </a>
                          </div>

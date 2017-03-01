@@ -8,25 +8,18 @@ use app\models\Comment;
 
 class CommentController extends Controller
 {
-  public function actionIndex($value='')
-  {
-    # code...
-  }
 
-  public function actionCreate($value='')
+  //action for deleting commentaries
+  public function actionDelete($id)
   {
-    # code...
-  }
-
-  public function actionDelete($comment_id)
-  {
-    $this->findModel($comment_id)->delete();
+    $this->findModel($id)->delete();
     return $this->redirect(['article/index']);
   }
 
-  public function findModel ($comment_id)
+  //Method wich help us find needed model
+  public function findModel ($id)
   { //If data not null then return it to action
-    if(($model = Comment::findOne($comment_id)) !== null)
+    if(($model = Comment::findOne($id)) !== null)
     {
 
       return $model;

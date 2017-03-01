@@ -17,13 +17,9 @@ use app\models\Category;
 
     public function run()
     {
+      //Find all categories
       $model = Category::find()->all();
-      //$category = [];
-      //foreach ($model as $key => $value)
-      //{
-      //  $categories[] = ['label'=> $value['category_name'], 'url' => $value['id']];
-      //}
-      //$conter = ob_get_clean();
+      //render widget and send him all categories which we find
       return $this->render('category', ['model' => $model]);
     }
   }

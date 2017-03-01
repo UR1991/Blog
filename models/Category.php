@@ -1,5 +1,5 @@
 <?php
-//Model for working with comments
+//Model for working with categories
 namespace app\models;
 
 use Yii;
@@ -7,6 +7,7 @@ use yii\db\ActiveRecord;
 
 class Category extends ActiveRecord
 {
+  //return name of table with categories
   public static function tableName()
   {
     return 'categories';
@@ -26,11 +27,5 @@ class Category extends ActiveRecord
         [['category_name'], 'required'],
     ];
   }
-
-  //public function getArticle()
-//{
-//    return $this->hasMany(Article::className(), ['id' => 'category']);
-//}
-
 }
  ?>
