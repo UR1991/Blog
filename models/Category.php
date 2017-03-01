@@ -16,21 +16,21 @@ class Category extends ActiveRecord
   {
     return [
       'id' => 'id',
-      'category_name' => 'category',
+      'category_name' => 'category_name',
     ];
   }
 
   public function rules()
   {
     return [
-        [['category'], 'required'],
+        [['category_name'], 'required'],
     ];
   }
 
-  public function getArticle()
-{
-    return $this->hasMany(Article::className(), ['id' => 'category']);
-}
+  //public function getArticle()
+//{
+//    return $this->hasMany(Article::className(), ['id' => 'category']);
+//}
 
 }
  ?>

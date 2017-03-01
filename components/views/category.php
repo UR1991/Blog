@@ -9,5 +9,8 @@
       <li>
         <a href="/category/index">Category Redactor</a>
       </li>
+      <li>
+        <a href="index">All categories</a>
+      </li>
     </ul>
 </div>

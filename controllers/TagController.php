@@ -2,7 +2,7 @@
 namespace app\controllers;
 
 use Yii;
-use yii\app\Controller;
+use yii\web\Controller;
 use app\models\Article;
 use app\models\Tags;
 use app\models\TagArticles;
@@ -13,6 +13,18 @@ use app\models\TagArticles;
 class TagController extends Controller
 {
 
+  public function behaviors()
+  {
+    return ['verbs' => ['class' => VerbFilter::className(), 'actions' => ['delete' => ['POST'],],],];
+  }
+
+  public function actionIndex()
+  {
+    $dataProvider = new ActiveDataProvider(['query' =>Tags::find(),]);
+
+    return $this->render('index', ['dataProvider' => $dataProvider]);
+  }
+
   public function actionNewTag()
   {
     # code...
@@ -21,11 +33,14 @@ class TagController extends Controller
   {
     $tag = Tags::findOne($tag_id)->delete();
   }
-  public function actionSetTag()
+  public function actionAdd()
   {
-    $tag = new Tags;
+    $tag = new TagArticles;
 
-    $tag->load()->save();
+    $tag->tag_id = $tag_id;
+    $tag->article_id = $article_id;
+    var_dump($tag);
+    die();
   }
 }
 

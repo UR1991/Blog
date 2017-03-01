@@ -16,16 +16,26 @@ use yii\web\Controller;
 class ArticleController extends Controller
 {
 
+
   public function actionIndex($params = null)
   {
+    if($params !== null)
+    {
+      $model = Article::find()->where(['category' =>$params])->all();
+    }
+    else {
+      $model = Article::find()->all();
+    }
+
+
+
+
+
+
 
     $searchModel = new ArticleSearch();
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-    $tag = new Tags();
-
-    //var_dump($tag->id);
-    //die();
     return $this->render('index', [
       'searchModel' => $searchModel,
       'dataProvider' => $dataProvider,
@@ -38,34 +48,67 @@ class ArticleController extends Controller
   {
     $model = new Article();
 
-    if ($model->load(Yii::$app->request->post()) && $model->save())    {
+    if ($model->load(Yii::$app->request->post()) && $model->save())
+    {
+      //$saveTag = TagArticles::save($tags);
+
+
       return $this->redirect(['view', 'id' => $model->id]);
-    } else {
-      return $this->render('create', ['model' => $model,]);
+    }
+
+    else
+    {
+      return $this->render('create', ['model' => $model, 'category' => Category::find()->all(), 'tags' => Tags::find()->all(),]);
     }
   }
 
   public function actionView($id)
   {
+    //find model by id
     $model = $this->findModel($id);
 
-    $comment = new Comment();
+    //find comments by article_id
+    $comments = new Comment();
+    $comments->article_id = $id;
 
-    $tags = new Tags();
-    $tags->load(Yii::$app->request->post());
-    $tags = $model->tags;
-
-    if ( $comment->load( Yii::$app->request->post() ) )
+    if ($comments->load(Yii::$app->request->post()) && $comments->save())
     {
-      $comment->article_id = $model->id;
-
-      if ($comment->save())
-      {
-        return $this->refresh();
-      }
+      return $this->redirect(Yii::$app->request->referrer);
     }
-    return $this->render('view', ['model' => $model, 'tags' => $tags,]);
+    else {
+      return $this->render('view', [
+    'model' => $this->findModel($id),
+    'comments' => $comments,
+]);
+    }
+
+
+    //Render view with model and comments
+    return $this->render('view', ['model' => $model, 'comments' => $comments,]);
   }
+
+
+
+
+
+  public function actionTest($id = 1)
+  {
+    $model = $this->findModel($id);
+
+    $tags = Tags::findOne($id);
+    //$tags->id = $id;
+    $model->link('tags', $tags);
+    //var_dump($tags);
+    //die();
+  }
+
+
+
+
+
+
+
+
 
   public function actionEdit($id)
   {
@@ -73,11 +116,16 @@ class ArticleController extends Controller
 
     if ($model->load(Yii::$app->request->post()) && $model->save())
     {
-      return $this->redirect(['view', 'id' => $model->id]);
+      //var_dump($model);
+      //  die();
+      return $this->redirect(['index']);
     }
     else
     {
-      return $this->render('edit', ['model' => $model,]);
+      return $this->render('edit', [
+      'model' => $model,
+      'category' => Category::find()->all(),
+      'tags' => Tags::find()->all(),]);
     }
   }
 

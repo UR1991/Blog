@@ -27,13 +27,25 @@ class Tags extends ActiveRecord
     ];
   }
 
-  public function getArticle()
+  public function getTagArticles()
 {
-    return $this->hasMany(Articles::className(), ['id' => 'id'])
-    ->viaTable('tag_articles', ['article_id' => 'id']);
+    return $this->hasMany(TagArticles::className(), ['tag_id' => 'id']);
 }
 
+public function getTag($id)
+{
+    if (($model = Tags::findOne($id)) !== null) {
+        return $model;
+    } else {
+        throw new NotFoundHttpException('The requested post does not exist.');
+    }
+}
 
+public function getArticle()
+{
+  return $this->hasMany(Article::className(), ['id' => 'article_id'])
+  ->viaTable('tag_articles', ['tag_id'=>'id']);
+}
 
 //public function getTags()
 //{

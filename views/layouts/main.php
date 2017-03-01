@@ -23,6 +23,9 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
+  <div class="Category">
+    <?= CategoryWidget::widget()?>
+  </div>
 <?php $this->beginBody() ?>
 
 <div class="wrap">
@@ -65,9 +68,7 @@ AppAsset::register($this);
     </div>
 </div>
 
-<div class="Category">
-  <?= CategoryWidget::widget()?>
-</div>
+
 
 <footer class="footer">
     <div class="container">

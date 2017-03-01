@@ -28,14 +28,14 @@ class Comment extends ActiveRecord
   public function rules()
   {
       return [
-          [['task_id', 'text'], 'required'],
+          [['article_id', 'text'], 'required'],
           [['text'], 'string', 'max' => 80],
       ];
   }
 
   public function getArticle()
 {
-    return $this->hasOne(Article::className(), ['id' => 'article_id']);
+    return $this->hasOne(Article::className(), ['article_id' => 'id']);
 }
 }
  ?>

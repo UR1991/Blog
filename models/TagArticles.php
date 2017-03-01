@@ -23,9 +23,19 @@ class TagArticles extends ActiveRecord
   public function rules()
   {
     return [
-        [['tag_id', 'article_id'], 'required'],
+        [['tag_id', 'article_id'], 'integer'],
     ];
   }
+
+  public function getArticle()
+{
+    return $this->hasOne(Article::className(), ['id' => 'article_id']);
+}
+
+public function getTags()
+{
+  return $this->hasOne(Tags::className(), ['id' => 'tag_id']);
+}
 
 }
  ?>
